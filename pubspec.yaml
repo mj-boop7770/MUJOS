@@ -1,0 +1,17 @@
+name: mujos_vpn
+description: Application de tunnel VPN personnalisé Mujos VPN.
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.12.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_v2ray: ^1.2.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/config.json
+    
