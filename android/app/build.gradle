@@ -50,8 +50,29 @@ android {
         versionName flutterVersionName
     }
 
+    signingConfigs {
+        release {
+            storeFile file("$System.env.KEYSTORE_PATH" ?: "release.jks")
+            storePassword System.env.KEYSTORE_PASSWORD
+            keyAlias System.env.KEY_ALIAS
+            keyPassword System.env.KEY_PASSWORD
+        }
+        debug {
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storeFile file('$HOME/.android/debug.keystore')
+            storePassword 'android'
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
             signingConfig signingConfigs.debug
         }
     }
