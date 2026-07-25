@@ -26,15 +26,6 @@
             </intent-filter>
         </activity>
 
-        <service android:name="com.github.blueboytm.flutter_v2ray.V2rayVPNService"
-            android:permission="android.permission.BIND_VPN_SERVICE"
-            android:exported="false"
-            android:foregroundServiceType="specialUse">
-            <intent-filter>
-                <action android:name="android.net.VpnService"/>
-            </intent-filter>
-        </service>
-
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
