@@ -23,6 +23,15 @@ jobs:
         with:
           flutter-version: '3.24.0'
 
+      - name: Generate Android project scaffold
+        run: flutter create --platforms=android --project-name octopus_core --org com.mujos .
+
+      - name: Add VPN permissions to manifest
+        run: |
+          MANIFEST=android/app/src/main/AndroidManifest.xml
+          sed -i '/<manifest /a\    <uses-permission android:name="android.permission.INTERNET"/>\n    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>\n    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE"/>\n    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>' $MANIFEST
+          cat $MANIFEST
+
       - name: Install dependencies
         run: flutter pub get
 
