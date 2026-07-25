@@ -1,5 +1,5 @@
 {
-  "remarks": "Octopus - Configuration Template",
+  "remarks": "Octopus - Allemagne (Movitel)",
   "log": {
     "loglevel": "warning"
   },
@@ -21,11 +21,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "YOUR_SERVER_ADDRESS",
+            "address": "217.16.28.126",
             "port": 443,
             "users": [
               {
-                "id": "YOUR_UUID_HERE",
+                "id": "3346b3dd-fd39-4967-8c6f-a2c472bcd7c1",
                 "encryption": "none"
               }
             ]
@@ -38,9 +38,9 @@
         "realitySettings": {
           "show": false,
           "fingerprint": "firefox",
-          "serverName": "YOUR_SERVER_NAME",
-          "publicKey": "YOUR_PUBLIC_KEY_HERE",
-          "shortId": "YOUR_SHORT_ID",
+          "serverName": "mymovitel.selfcare",
+          "publicKey": "NGK7rbaQgNFEiZ2bnUG6PA2pU3yL1ye7WUhJk_qGO0U",
+          "shortId": "3fdbd681c2f9a56b",
           "spiderX": ""
         }
       }
