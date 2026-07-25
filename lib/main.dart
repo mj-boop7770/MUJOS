@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_v2ray/flutter_v2ray.dart';
+import 'package:flutter_v2ray_client/flutter_v2ray.dart';
 
 void main() => runApp(const MyApp());
 
@@ -24,33 +24,39 @@ class TunnelScreen extends StatefulWidget {
 }
 
 class _TunnelScreenState extends State<TunnelScreen> {
-  late FlutterV2ray flutterV2ray;
+  late V2ray v2ray;
   bool isConnected = false;
 
   @override
   void initState() {
     super.initState();
-    flutterV2ray = FlutterV2ray(
-      onStatusChange: (status) {
+    v2ray = V2ray(
+      onStatusChanged: (status) {
         setState(() {
           isConnected = status.state == "CONNECTED";
         });
       },
     );
-    flutterV2ray.initializeV2Ray();
+    v2ray.initialize(
+      notificationIconResourceType: "mipmap",
+      notificationIconResourceName: "ic_launcher",
+    );
   }
 
   void toggleConnection() async {
     if (isConnected) {
-      await flutterV2ray.stopV2Ray();
+      await v2ray.stopV2Ray();
       return;
     }
     try {
       String configString = await rootBundle.loadString('assets/config.json');
-      if (await flutterV2ray.requestPermission()) {
-        await flutterV2ray.startV2Ray(
+      if (await v2ray.requestPermission()) {
+        await v2ray.startV2Ray(
           remark: "Mon Tunnel Perso",
           config: configString,
+          blockedApps: null,
+          bypassSubnets: null,
+          proxyOnly: false,
         );
       }
     } catch (e) {
