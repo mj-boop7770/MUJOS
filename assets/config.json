@@ -33,7 +33,7 @@
         ]
       },
       "streamSettings": {
-        "network": "tcp",
+        "network": "http",
         "security": "reality",
         "realitySettings": {
           "show": false,
