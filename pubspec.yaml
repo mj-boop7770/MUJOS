@@ -9,7 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_v2ray: ^1.0.24
+  flutter_v2ray: ^1.0.10
 
 dev_dependencies:
   flutter_test:
