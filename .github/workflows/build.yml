@@ -1,35 +1,36 @@
-name: Generate Android Scaffold
+name: Build Flutter APK
 
 on:
+  push:
+    branches: [ main ]
   workflow_dispatch:
 
-permissions:
-  contents: write
-
 jobs:
-  generate:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - uses: subosito/flutter-action@v2
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.44.7'
 
-      - name: Remove incomplete android folder
-        run: rm -rf android
+      - name: Install dependencies
+        run: flutter pub get
 
-      - run: flutter create --platforms=android --project-name octopus_core --org com.mujos .
+      - name: Build APK
+        run: flutter build apk --release
 
-      - name: Add VPN permissions to manifest
-        run: |
-          MANIFEST=android/app/src/main/AndroidManifest.xml
-          sed -i '/<manifest /a\    <uses-permission android:name="android.permission.INTERNET"/>\n    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>\n    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE"/>\n    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>' $MANIFEST
-
-      - name: Commit generated files
-        run: |
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
-          git add -A
-          git commit -m "Regenerate complete Android scaffold"
-          git push
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: octopus-app
+          path: build/app/outputs/flutter-apk/app-release.apk
