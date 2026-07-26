@@ -26,6 +26,11 @@ jobs:
       - name: Generate Android project scaffold
         run: flutter create --platforms=android --project-name octopus_core --org com.mujos .
 
+      - name: Remove legacy Flutter Gradle apply
+        run: |
+          sed -i '/apply from:.*flutter.gradle/d' android/app/build.gradle
+          cat android/app/build.gradle
+
       - name: Add VPN permissions to manifest
         run: |
           MANIFEST=android/app/src/main/AndroidManifest.xml
