@@ -33,7 +33,7 @@
         ]
       },
       "streamSettings": {
-        "network": "http",
+        "network": "xhttp",
         "security": "reality",
         "realitySettings": {
           "show": false,
